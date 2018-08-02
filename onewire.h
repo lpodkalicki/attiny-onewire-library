@@ -11,6 +11,8 @@
 #ifndef _ATTINY_ONEWIRE_H_
 #define _ATTINY_ONEWIRE_H_
 
+#include <stdint.h>
+
 #define	ONEWIRE_SEARCH_ROM	0xF0
 #define	ONEWIRE_READ_ROM	0x33
 #define	ONEWIRE_MATCH_ROM	0x55
