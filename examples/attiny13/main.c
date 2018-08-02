@@ -20,15 +20,15 @@ read_temperature(void)
 	uint16_t t;
 
 	onewire_reset(); // 1-Wire reset
-        onewire_write(ONEWIRE_SKIP_ROM); // to all devices on the bus
-        onewire_write(0x44); // send DS18B20 command, "CONVERT T"
+	onewire_write(ONEWIRE_SKIP_ROM); // to all devices on the bus
+	onewire_write(0x44); // send DS18B20 command, "CONVERT T"
 
 	onewire_reset(); // 1-Wire reset
 	onewire_write(ONEWIRE_SKIP_ROM); // to all devices on the bus
-        onewire_write(0xBE); // send DS18B20 command, "READ SCRATCHPAD"
+	onewire_write(0xBE); // send DS18B20 command, "READ SCRATCHPAD"
 
-      	t = onewire_read(); // read temperature low byte
-      	t |= (uint16_t)onewire_read() << 8; // and high byte
+	t = onewire_read(); // read temperature low byte
+	t |= (uint16_t)onewire_read() << 8; // and high byte
 	t = ((t >> 4) * 100 + ((t << 12) / 6553) * 10) / 100; // decode temp
 
 	return (uint8_t)t;
