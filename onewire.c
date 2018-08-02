@@ -30,12 +30,12 @@ onewire_init(uint8_t pin)
 
 uint8_t
 onewire_reset(void)
-{	
-	uint8_t retval, retries; 
+{
+	uint8_t retval, retries;
 
-	ONEWIRE_PIN_LOW();	
+	ONEWIRE_PIN_LOW();
 	ONEWIRE_PIN_INPUT();
-	
+
 	retries = ONEWIRE_RESET_RETRIES_MAX;
 	while (!ONEWIRE_PIN_READ()) {
 		if (--retries == 0) {
@@ -43,7 +43,7 @@ onewire_reset(void)
 		}
 		_delay_us(1);
 	}
-	
+
 	ONEWIRE_PIN_OUTPUT();
 	_delay_us(480);
 	ONEWIRE_PIN_INPUT();
@@ -71,11 +71,11 @@ onewire_bit(uint8_t value)
   	_delay_us(45);
   	ONEWIRE_PIN_INPUT();
   	SREG = sreg;
-	
+
 	return value;
 }
 
-uint8_t 
+uint8_t
 onewire_write(uint8_t value)
 {
 	uint8_t i, r;
@@ -87,8 +87,8 @@ onewire_write(uint8_t value)
 			value |= 0x80;
 		}
 	}
-	
-  	return value;	
+
+  	return value;
 }
 
 uint8_t
@@ -97,5 +97,3 @@ onewire_read(void)
 
 	return onewire_write(0xff);
 }
-
-
