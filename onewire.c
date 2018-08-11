@@ -17,7 +17,7 @@
 #define ONEWIRE_PIN_LOW()		(PORTB &= ~_onewire_pin)
 #define ONEWIRE_PIN_HIGH()		(PORTB |= _onewire_pin)
 #define ONEWIRE_PIN_READ()		(PINB & _onewire_pin)
-#define	ONEWIRE_RESET_RETRIES_MAX	(128)
+#define ONEWIRE_RESET_RETRIES_MAX	(128)
 
 
 static uint8_t _onewire_pin = 0;
