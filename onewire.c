@@ -12,24 +12,15 @@
 #include <util/delay.h>
 #include "onewire.h"
 
-#define ONEWIRE_PIN_INPUT()		(DDRB &= ~_onewire_pin)
-#define ONEWIRE_PIN_OUTPUT()		(DDRB |= _onewire_pin)
-#define ONEWIRE_PIN_LOW()		(PORTB &= ~_onewire_pin)
-#define ONEWIRE_PIN_HIGH()		(PORTB |= _onewire_pin)
-#define ONEWIRE_PIN_READ()		(PINB & _onewire_pin)
+#define ONEWIRE_PIN_INPUT()		(DDRB &= ~pin)
+#define ONEWIRE_PIN_OUTPUT()		(DDRB |= pin)
+#define ONEWIRE_PIN_LOW()		(PORTB &= ~pin)
+#define ONEWIRE_PIN_HIGH()		(PORTB |= pin)
+#define ONEWIRE_PIN_READ()		(PINB & pin)
 #define ONEWIRE_RESET_RETRIES_MAX	(128)
 
-
-static uint8_t _onewire_pin = 0;
-
-void
-onewire_init(uint8_t pin)
-{
-	_onewire_pin = _BV(pin);
-}
-
 uint8_t
-onewire_reset(void)
+onewire_reset(uint8_t pin)
 {
 	uint8_t retval, retries;
 
@@ -55,7 +46,7 @@ onewire_reset(void)
 }
 
 static uint8_t
-onewire_bit(uint8_t value)
+onewire_bit(uint8_t pin, uint8_t value)
 {
 	uint8_t sreg;
 
@@ -76,12 +67,12 @@ onewire_bit(uint8_t value)
 }
 
 uint8_t
-onewire_write(uint8_t value)
+onewire_write(uint8_t pin, uint8_t value)
 {
 	uint8_t i, r;
 
 	for (i = 0; i < 8; ++i) {
-    		r = onewire_bit(value & 0x01);
+    		r = onewire_bit(pin, value & 0x01);
 		value >>= 1;
     		if (r) {
 			value |= 0x80;
@@ -92,8 +83,8 @@ onewire_write(uint8_t value)
 }
 
 uint8_t
-onewire_read(void)
+onewire_read(uint8_t pin)
 {
 
-	return onewire_write(0xff);
+	return onewire_write(pin, 0xff);
 }

@@ -19,9 +19,8 @@
 #define ONEWIRE_SKIP_ROM	0xCC
 #define ONEWIRE_ALARM_SEARCH	0xEC
 
-void onewire_init(uint8_t pin);
-uint8_t onewire_reset(void);
-uint8_t onewire_write(uint8_t value);
-uint8_t onewire_read(void);
+uint8_t onewire_reset(uint8_t pin);
+uint8_t onewire_write(uint8_t pin, uint8_t value);
+uint8_t onewire_read(uint8_t pin);
 
 #endif	/* !_ATTINY_ONEWIRE_H_ */
