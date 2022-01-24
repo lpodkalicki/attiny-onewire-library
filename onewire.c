@@ -12,11 +12,11 @@
 #include <util/delay.h>
 #include "onewire.h"
 
-#define ONEWIRE_PIN_INPUT()		(DDRB &= ~pin)
-#define ONEWIRE_PIN_OUTPUT()		(DDRB |= pin)
-#define ONEWIRE_PIN_LOW()		(PORTB &= ~pin)
-#define ONEWIRE_PIN_HIGH()		(PORTB |= pin)
-#define ONEWIRE_PIN_READ()		(PINB & pin)
+#define ONEWIRE_PIN_INPUT()		(DDRB &= ~_BV(pin))
+#define ONEWIRE_PIN_OUTPUT()		(DDRB |= _BV(pin))
+#define ONEWIRE_PIN_LOW()		(PORTB &= ~_BV(pin))
+#define ONEWIRE_PIN_HIGH()		(PORTB |= _BV(pin))
+#define ONEWIRE_PIN_READ()		(PINB & _BV(pin))
 #define ONEWIRE_RESET_RETRIES_MAX	(128)
 
 uint8_t
